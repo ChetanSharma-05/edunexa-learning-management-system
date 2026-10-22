@@ -1,0 +1,398 @@
+@import "tailwindcss";
+
+:root {
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  color: #0f172a;
+  background: #f8fafc;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hero-3d-card {
+  transform:
+    perspective(1200px)
+    rotateY(-8deg)
+    rotateX(5deg)
+    rotateZ(1deg);
+
+  animation: heroFloat 6s ease-in-out infinite;
+
+  transform-style: preserve-3d;
+
+  transition:
+    transform 0.5s ease,
+    box-shadow 0.5s ease;
+}
+
+.hero-3d-card:hover {
+  transform:
+    perspective(1200px)
+    rotateY(-2deg)
+    rotateX(2deg)
+    rotateZ(0deg)
+    translateY(-8px);
+
+  box-shadow:
+    0 45px 100px rgba(79, 70, 229, 0.25);
+}
+
+.floating-card {
+  animation: floatingCard 5s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+.floating-one {
+  animation-delay: -1s;
+}
+
+.floating-two {
+  animation-delay: -2.5s;
+}
+
+.floating-three {
+  animation-delay: -4s;
+}
+
+.ai-preview-card {
+  transform:
+    perspective(1000px)
+    rotateY(-5deg)
+    rotateX(3deg);
+
+  transition:
+    transform 0.5s ease,
+    box-shadow 0.5s ease;
+}
+
+.ai-preview-card:hover {
+  transform:
+    perspective(1000px)
+    rotateY(0deg)
+    rotateX(0deg)
+    translateY(-8px);
+
+  box-shadow:
+    0 35px 80px rgba(15, 23, 42, 0.12);
+}
+
+@keyframes heroFloat {
+  0%,
+  100% {
+    transform:
+      perspective(1200px)
+      rotateY(-8deg)
+      rotateX(5deg)
+      rotateZ(1deg)
+      translateY(0);
+  }
+
+  50% {
+    transform:
+      perspective(1200px)
+      rotateY(-6deg)
+      rotateX(3deg)
+      rotateZ(0deg)
+      translateY(-14px);
+  }
+}
+
+@keyframes floatingCard {
+  0%,
+  100% {
+    transform:
+      translateY(0)
+      rotateZ(0deg);
+  }
+
+  50% {
+    transform:
+      translateY(-12px)
+      rotateZ(1deg);
+  }
+}
+
+@media (max-width: 768px) {
+
+  .hero-3d-card {
+    transform: none;
+    animation: none;
+  }
+
+  .floating-card {
+    display: none;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+}
+
+
+.login-bg-orb {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  filter: blur(70px);
+  animation: loginOrbFloat 8s ease-in-out infinite;
+}
+
+.login-orb-one {
+  width: 420px;
+  height: 420px;
+  top: 10%;
+  left: -180px;
+  background: rgba(99, 102, 241, 0.12);
+}
+
+.login-orb-two {
+  width: 380px;
+  height: 380px;
+  right: -150px;
+  top: 18%;
+  background: rgba(139, 92, 246, 0.12);
+  animation-delay: -3s;
+}
+
+.login-orb-three {
+  width: 300px;
+  height: 300px;
+  bottom: -150px;
+  left: 42%;
+  background: rgba(6, 182, 212, 0.09);
+  animation-delay: -5s;
+}
+
+.login-3d-card {
+  transform:
+    perspective(1000px)
+    rotateY(-10deg)
+    rotateX(5deg)
+    rotateZ(1deg);
+
+  transform-style: preserve-3d;
+
+  animation: loginCardFloat 6s ease-in-out infinite;
+
+  transition:
+    transform 0.5s ease,
+    box-shadow 0.5s ease;
+}
+
+.login-3d-card:hover {
+  transform:
+    perspective(1000px)
+    rotateY(-3deg)
+    rotateX(2deg)
+    rotateZ(0deg)
+    translateY(-8px);
+
+  box-shadow:
+    0 45px 100px rgba(79, 70, 229, 0.22);
+}
+
+.login-floating-card {
+  transform-style: preserve-3d;
+  animation: loginFloating 5s ease-in-out infinite;
+}
+
+.login-float-one {
+  animation-delay: -1s;
+}
+
+.login-float-two {
+  animation-delay: -2.5s;
+}
+
+.login-float-three {
+  animation-delay: -4s;
+}
+
+.login-panel {
+  transform:
+    perspective(1200px)
+    rotateY(-2deg)
+    rotateX(1deg);
+
+  transition:
+    transform 0.5s ease,
+    box-shadow 0.5s ease;
+}
+
+.login-panel:hover {
+  transform:
+    perspective(1200px)
+    rotateY(0deg)
+    rotateX(0deg)
+    translateY(-3px);
+}
+
+.login-button {
+  transform-style: preserve-3d;
+}
+
+@keyframes loginCardFloat {
+  0%,
+  100% {
+    transform:
+      perspective(1000px)
+      rotateY(-10deg)
+      rotateX(5deg)
+      rotateZ(1deg)
+      translateY(0);
+  }
+
+  50% {
+    transform:
+      perspective(1000px)
+      rotateY(-7deg)
+      rotateX(3deg)
+      rotateZ(0deg)
+      translateY(-12px);
+  }
+}
+
+@keyframes loginFloating {
+  0%,
+  100% {
+    transform:
+      translateY(0)
+      rotateZ(0deg);
+  }
+
+  50% {
+    transform:
+      translateY(-13px)
+      rotateZ(1deg);
+  }
+}
+
+@keyframes loginOrbFloat {
+  0%,
+  100% {
+    transform:
+      translate3d(0, 0, 0)
+      scale(1);
+  }
+
+  50% {
+    transform:
+      translate3d(20px, -25px, 0)
+      scale(1.08);
+  }
+}
+
+
+/* Tablet */
+
+@media (max-width: 1023px) {
+
+  .login-panel {
+    transform: none;
+  }
+
+  .login-panel:hover {
+    transform: translateY(-2px);
+  }
+
+}
+
+
+/* Mobile */
+
+@media (max-width: 640px) {
+
+  .login-bg-orb {
+    filter: blur(50px);
+  }
+
+  .login-orb-one {
+    width: 240px;
+    height: 240px;
+    top: 8%;
+    left: -120px;
+  }
+
+  .login-orb-two {
+    width: 220px;
+    height: 220px;
+    right: -120px;
+    top: 35%;
+  }
+
+  .login-orb-three {
+    width: 180px;
+    height: 180px;
+    bottom: -80px;
+    left: 35%;
+  }
+
+  .login-panel {
+    width: 100%;
+    border-radius: 24px;
+    padding: 24px 20px;
+  }
+
+}
+
+
+/* Small Mobile */
+
+@media (max-width: 380px) {
+
+  .login-panel {
+    padding: 20px 16px;
+    border-radius: 20px;
+  }
+
+}
+
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .login-bg-orb,
+  .login-3d-card,
+  .login-floating-card {
+    animation: none;
+  }
+
+}

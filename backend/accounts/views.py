@@ -1,12 +1,11 @@
-
 import logging
 
+import resend
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core.exceptions import ValidationError as DjangoValidationError
-from django.core.mail import send_mail
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
@@ -86,6 +85,27 @@ class PasswordResetRequestView(APIView):
             user = users.first()
 
             try:
+                api_key = getattr(settings, "RESEND_API_KEY", "").strip()
+                from_email = getattr(
+                    settings,
+                    "RESEND_FROM_EMAIL",
+                    "",
+                ).strip()
+
+                if not api_key or not from_email:
+                    logger.error(
+                        "Resend email settings are not configured."
+                    )
+                    return Response(
+                        {
+                            "detail": (
+                                "Email service is temporarily unavailable. "
+                                "Please try again later."
+                            )
+                        },
+                        status=status.HTTP_503_SERVICE_UNAVAILABLE,
+                    )
+
                 uid = urlsafe_base64_encode(force_bytes(user.pk))
                 token = token_generator.make_token(user)
 
@@ -98,20 +118,28 @@ class PasswordResetRequestView(APIView):
                     f"Hello {user.get_username()},\n\n"
                     "We received a request to reset your EduNexa password.\n\n"
                     f"Open this link to reset your password:\n{reset_url}\n\n"
-                    "This link expires after the configured time limit.\n"
+                    "This link expires after one hour.\n"
                     "If you did not request this, you can ignore this email."
                 )
 
-                send_mail(
-                    subject="Reset your EduNexa password",
-                    message=message,
-                    from_email=settings.DEFAULT_FROM_EMAIL,
-                    recipient_list=[user.email],
-                    fail_silently=False,
-                )
+                resend.api_key = api_key
+
+                result = resend.Emails.send({
+                    "from": from_email,
+                    "to": [user.email],
+                    "subject": "Reset your EduNexa password",
+                    "text": message,
+                })
+
+                if not result:
+                    raise RuntimeError(
+                        "Resend did not return an email result."
+                    )
 
             except Exception:
-                logger.exception("Password reset email could not be sent")
+                logger.exception(
+                    "Password reset email could not be sent."
+                )
                 return Response(
                     {
                         "detail": (
@@ -147,16 +175,32 @@ class PasswordResetConfirmView(APIView):
 
         try:
             user_id = force_str(urlsafe_base64_decode(uid))
-            user = User.objects.get(pk=user_id, is_active=True)
-        except (ValueError, TypeError, OverflowError, User.DoesNotExist):
+            user = User.objects.get(
+                pk=user_id,
+                is_active=True,
+            )
+        except (
+            ValueError,
+            TypeError,
+            OverflowError,
+            User.DoesNotExist,
+        ):
             return Response(
-                {"detail": "This password reset link is invalid or expired."},
+                {
+                    "detail": (
+                        "This password reset link is invalid or expired."
+                    )
+                },
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
         if not token_generator.check_token(user, token):
             return Response(
-                {"detail": "This password reset link is invalid or expired."},
+                {
+                    "detail": (
+                        "This password reset link is invalid or expired."
+                    )
+                },
                 status=status.HTTP_400_BAD_REQUEST,
             )
 

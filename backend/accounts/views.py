@@ -1,6 +1,6 @@
+
 import logging
 
-import resend
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
@@ -16,6 +16,7 @@ from rest_framework.throttling import AnonRateThrottle
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 
+from .gmail_service import send_password_reset_email
 from .serializers import LoginSerializer
 
 
@@ -85,27 +86,6 @@ class PasswordResetRequestView(APIView):
             user = users.first()
 
             try:
-                api_key = getattr(settings, "RESEND_API_KEY", "").strip()
-                from_email = getattr(
-                    settings,
-                    "RESEND_FROM_EMAIL",
-                    "",
-                ).strip()
-
-                if not api_key or not from_email:
-                    logger.error(
-                        "Resend email settings are not configured."
-                    )
-                    return Response(
-                        {
-                            "detail": (
-                                "Email service is temporarily unavailable. "
-                                "Please try again later."
-                            )
-                        },
-                        status=status.HTTP_503_SERVICE_UNAVAILABLE,
-                    )
-
                 uid = urlsafe_base64_encode(force_bytes(user.pk))
                 token = token_generator.make_token(user)
 
@@ -122,19 +102,11 @@ class PasswordResetRequestView(APIView):
                     "If you did not request this, you can ignore this email."
                 )
 
-                resend.api_key = api_key
-
-                result = resend.Emails.send({
-                    "from": from_email,
-                    "to": [user.email],
-                    "subject": "Reset your EduNexa password",
-                    "text": message,
-                })
-
-                if not result:
-                    raise RuntimeError(
-                        "Resend did not return an email result."
-                    )
+                send_password_reset_email(
+                    to_email=user.email,
+                    subject="Reset your EduNexa password",
+                    message=message,
+                )
 
             except Exception:
                 logger.exception(

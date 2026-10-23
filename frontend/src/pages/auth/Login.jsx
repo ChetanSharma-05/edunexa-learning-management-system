@@ -64,7 +64,7 @@ export default function Login() {
 
 
   return (
-    <div className="min-h-screen bg-[#f6f8fc] relative overflow-hidden">
+    <div className="min-h-screen min-h-[100svh] bg-[#f6f8fc] relative overflow-x-hidden">
 
       {/* Background */}
 
@@ -77,7 +77,7 @@ export default function Login() {
 
       {/* Top Navigation */}
 
-      <header className="relative z-20 px-5 sm:px-8 py-6">
+      <header className="relative z-20 px-4 py-3 sm:px-8 sm:py-6">
 
         <div className="max-w-7xl mx-auto flex items-center justify-between">
 
@@ -125,7 +125,7 @@ export default function Login() {
 
       {/* Main */}
 
-      <main className="relative z-10 min-h-[calc(100vh-96px)] flex items-center px-5 sm:px-8 pb-10">
+      <main className="relative z-10 flex items-center px-4 py-2 sm:px-8 sm:py-8 lg:min-h-[calc(100vh-96px)]">
 
         <div className="max-w-7xl w-full mx-auto">
 
@@ -380,38 +380,38 @@ export default function Login() {
 
             <section className="w-full max-w-md mx-auto lg:ml-auto">
 
-              <div className="login-panel bg-white/80 backdrop-blur-2xl border border-white rounded-[32px] shadow-[0_30px_90px_rgba(15,23,42,0.12)] p-7 sm:p-9">
+              <div className="login-panel bg-white/80 backdrop-blur-2xl border border-white rounded-[24px] sm:rounded-[32px] shadow-[0_30px_90px_rgba(15,23,42,0.12)] p-5 sm:p-9">
 
                 {/* Mobile Brand */}
 
-                <div className="lg:hidden text-center mb-8">
+                <div className="lg:hidden text-center mb-4 sm:mb-8">
 
-                  <div className="inline-flex w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white items-center justify-center shadow-lg shadow-indigo-500/25">
+                  <div className="inline-flex w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white items-center justify-center shadow-lg shadow-indigo-500/25">
 
                     <GraduationCap size={26} />
 
                   </div>
 
-                  <h1 className="text-2xl font-bold mt-3">
+                  <h1 className="text-xl sm:text-2xl font-bold mt-2 sm:mt-3">
                     EduNexa
                   </h1>
 
                 </div>
 
 
-                <div className="mb-8">
+                <div className="mb-5 sm:mb-8">
 
-                  <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-5">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-3 sm:mb-5">
 
                     <LockKeyhole size={21} />
 
                   </div>
 
-                  <h2 className="text-3xl font-bold tracking-tight text-slate-900">
+                  <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
                     Welcome back
                   </h2>
 
-                  <p className="text-slate-500 mt-2 leading-6">
+                  <p className="text-sm sm:text-base text-slate-500 mt-1.5 sm:mt-2 leading-5 sm:leading-6">
                     Sign in to continue to your EduNexa workspace.
                   </p>
 
@@ -420,7 +420,7 @@ export default function Login() {
 
                 <form
                   onSubmit={handleSubmit}
-                  className="space-y-5"
+                  className="space-y-4 sm:space-y-5"
                 >
 
                   {/* Username */}
@@ -447,7 +447,7 @@ export default function Login() {
                         placeholder="Enter your username"
                         required
                         autoComplete="username"
-                        className="w-full h-13 rounded-2xl border border-slate-200 bg-slate-50/80 pl-11 pr-4 text-slate-800 placeholder:text-slate-400 outline-none transition-all duration-300 focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10"
+                        className="w-full h-12 sm:h-13 rounded-xl sm:rounded-2xl border border-slate-200 bg-slate-50/80 pl-11 pr-4 text-base text-slate-800 placeholder:text-slate-400 outline-none transition-all duration-300 focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10"
                       />
 
                     </div>
@@ -498,7 +498,7 @@ export default function Login() {
                         placeholder="Enter your password"
                         required
                         autoComplete="current-password"
-                        className="w-full h-13 rounded-2xl border border-slate-200 bg-slate-50/80 pl-11 pr-12 text-slate-800 placeholder:text-slate-400 outline-none transition-all duration-300 focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10"
+                        className="w-full h-12 sm:h-13 rounded-xl sm:rounded-2xl border border-slate-200 bg-slate-50/80 pl-11 pr-12 text-base text-slate-800 placeholder:text-slate-400 outline-none transition-all duration-300 focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10"
                       />
 
 
@@ -547,7 +547,7 @@ export default function Login() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="login-button group relative w-full h-13 rounded-2xl bg-gradient-to-r from-indigo-600 via-indigo-600 to-violet-600 text-white font-bold shadow-xl shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-60 disabled:hover:translate-y-0 disabled:cursor-not-allowed overflow-hidden"
+                    className="login-button group relative w-full h-12 sm:h-13 rounded-xl sm:rounded-2xl bg-gradient-to-r from-indigo-600 via-indigo-600 to-violet-600 text-white font-bold shadow-xl shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-60 disabled:hover:translate-y-0 disabled:cursor-not-allowed overflow-hidden"
                   >
 
                     <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
@@ -574,7 +574,7 @@ export default function Login() {
 
                 {/* Security */}
 
-                <div className="mt-7 pt-6 border-t border-slate-100">
+                <div className="mt-4 pt-4 sm:mt-7 sm:pt-6 border-t border-slate-100">
 
                   <div className="flex items-center justify-center gap-2 text-xs text-slate-400">
 
@@ -589,7 +589,7 @@ export default function Login() {
               </div>
 
 
-              <p className="text-center text-xs text-slate-400 mt-5">
+              <p className="text-center text-xs text-slate-400 mt-3 sm:mt-5">
                 Authorized EduNexa users only
               </p>
 
